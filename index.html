@@ -189,6 +189,59 @@ body.mask .body b.rev { color: var(--shu); background: transparent; }
 @media (max-width: 380px) { .ib { width: 40px; height: 40px; } .ib.big { width: 52px; height: 52px; } }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
 
+/* exam countdown, update bar */
+.countdown { font-size: 14px; color: var(--ink-2); margin: 0; }
+.countdown b { font-family: var(--f-num); font-size: 24px; color: var(--shu); margin: 0 2px; }
+.upd { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap; background: var(--tokiwa); color: var(--paper); font-size: 14px; padding: 8px 12px; }
+.upd button { border: 1px solid var(--paper); background: transparent; color: var(--paper); border-radius: 999px; padding: 3px 12px; font-weight: 700; }
+
+/* quiz (○×) */
+.quiz { padding-block: 18px 30px; display: grid; gap: 16px; }
+.qz-setup { display: grid; gap: 12px; }
+.qz-h { font-size: 13px; font-weight: 700; color: var(--ink-2); letter-spacing: .04em; margin: 0; }
+.qz-sets { display: flex; flex-wrap: wrap; gap: 6px; }
+.qz-chip { border: 1px solid var(--rule); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 13px; display: inline-flex; gap: 6px; align-items: baseline; }
+.qz-chip small { font-family: var(--f-num); color: var(--ink-2); font-size: 11px; }
+.qz-chip[aria-pressed="true"] { background: var(--tokiwa); border-color: var(--tokiwa); color: var(--paper); font-weight: 700; }
+.qz-chip[aria-pressed="true"] small { color: var(--paper); }
+.qz-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.qz-row select { border: 1px solid var(--rule); background: var(--card); color: var(--ink); border-radius: 8px; padding: 6px 10px; font-size: 14px; }
+.qz-stat { font-size: 13px; color: var(--ink-2); margin: 0; }
+.qz-card { border: 1px solid var(--rule); background: var(--card); border-radius: 12px; padding: 16px; display: grid; gap: 14px; }
+.qz-meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-size: 12px; color: var(--ink-2); }
+.qz-meta .rank { width: 22px; height: 22px; font-size: 12px; }
+.qz-meta .sp { flex: 1; }
+.qz-q { font-size: calc(var(--fs) * 1.08); line-height: 1.9; margin: 0; }
+.qz-ans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.qz-ans button { border: 2px solid var(--rule); background: var(--paper); color: var(--ink); border-radius: 12px; padding: 12px 8px; font-size: 15px; font-weight: 700; display: grid; place-items: center; gap: 2px; }
+.qz-ans .sym { font-size: 32px; line-height: 1.1; }
+.qz-ans .o .sym { color: var(--tokiwa); }
+.qz-ans .x .sym { color: var(--shu); }
+.qz-ans button.right { border-color: var(--tokiwa); background: var(--tokiwa-soft); }
+.qz-ans button.wrong { border-color: var(--shu); background: var(--shu-soft); }
+.qz-ans button:disabled { cursor: default; }
+.qz-res { display: grid; gap: 8px; border-top: 1px dashed var(--rule); padding-top: 12px; }
+.qz-verdict { font-weight: 700; font-size: 17px; margin: 0; }
+.qz-verdict.right { color: var(--tokiwa); }
+.qz-verdict.wrong { color: var(--shu); }
+.qz-exp { margin: 0; line-height: 1.85; }
+.qz-src { font-size: 12px; color: var(--ink-2); margin: 0; }
+.qz-nav { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.qz-nav .sp { flex: 1; }
+.qz-prog { font-family: var(--f-num); font-size: 12px; color: var(--ink-2); }
+.qz-done { display: grid; gap: 10px; justify-items: center; text-align: center; padding: 18px 0; }
+.qz-score { font-family: var(--f-num); font-size: 44px; line-height: 1.1; color: var(--tokiwa); margin: 0; }
+.qz-done p { margin: 0; }
+/* quiz items in the reader */
+.body .qa { padding: 10px 0 12px; border-bottom: 1px dashed var(--rule); }
+.body .qa p { margin: 0 0 .35em; }
+.body .qa-no { font-family: var(--f-num); font-size: .85em; color: var(--ink-2); margin-right: .6em; }
+.body .qa-a { color: var(--ink-2); font-size: .95em; }
+.body .qa-a .sg + .sg { margin-left: .4em; }
+.body b.mk { font-size: 1.1em; }
+.body b.mk.ok { color: var(--tokiwa); }
+.body b.mk.ng { color: var(--shu); }
+
 /* lock screen */
 .lock { max-width: 440px; margin: 0 auto; padding-block: 12vh 40px; display: grid; gap: 18px; }
 .lock h1 { font-family: var(--f-law); font-weight: 700; font-size: 34px; line-height: 1.2; margin: 0; }
@@ -207,6 +260,7 @@ body.mask .body b.rev { color: var(--shu); background: transparent; }
 </style>
 </head>
 <body>
+<div class="upd" id="updBar" hidden>新しい版が届きました。<button type="button" onclick="location.reload()">更新する</button></div>
 <main class="lock" id="lock" hidden>
   <h1>宅建 <span>改正点</span>朗読</h1>
   <p>この教材は合言葉で保護されています。最初の1回だけ合言葉を入力してください。</p>
@@ -223,10 +277,13 @@ body.mask .body b.rev { color: var(--shu); background: transparent; }
   <header class="mast">
     <div class="eyebrow">令和８年度試験対策 ／ 法律改正点レジュメ</div>
     <h1>宅建 <span>改正点</span>朗読</h1>
+    <p class="countdown" id="countdown" hidden></p>
     <p class="sub" id="summary"></p>
     <div class="starts">
-      <button class="btn primary" id="btnAll" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>最初から全部聞く</button>
+      <button class="btn primary" id="btnSum" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>直前総まとめを聞く</button>
+      <button class="btn primary" id="btnQuiz" type="button"><span aria-hidden="true">○×</span>一問一答を解く</button>
       <button class="btn" id="btnResume" type="button" hidden><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg><span id="resumeLabel">続きから</span></button>
+      <button class="btn" id="btnAll" type="button"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>レジュメ全文を聞く</button>
       <button class="btn" id="btnA" type="button"><span class="rank A" style="width:20px;height:20px;font-size:12px">A</span>重要度Ａだけ通して聞く</button>
     </div>
     <div class="install" id="appInstall" hidden></div>
@@ -235,6 +292,7 @@ body.mask .body b.rev { color: var(--shu); background: transparent; }
   <nav class="tabs" role="tablist" aria-label="表示切替">
     <button class="tab" role="tab" id="tabToc" aria-selected="true" aria-controls="viewToc" type="button">目次</button>
     <button class="tab" role="tab" id="tabRead" aria-selected="false" aria-controls="viewRead" type="button">本文</button>
+    <button class="tab" role="tab" id="tabQuiz" aria-selected="false" aria-controls="viewQuiz" type="button">一問一答</button>
   </nav>
 
   <section id="viewToc" class="toc" role="tabpanel" aria-labelledby="tabToc"></section>
@@ -259,6 +317,53 @@ body.mask .body b.rev { color: var(--shu); background: transparent; }
     <div class="r-next">
       <button class="btn" id="rPrev" type="button">← 前の項目</button>
       <button class="btn" id="rNext" type="button">次の項目 →</button>
+    </div>
+  </section>
+
+  <section id="viewQuiz" class="quiz" role="tabpanel" aria-labelledby="tabQuiz" hidden>
+    <div class="qz-setup" id="qzSetup">
+      <p class="qz-h">分野を選ぶ（数字は「最後に正解した問題 / 問題数」）</p>
+      <div class="qz-sets" id="qzSets"></div>
+      <div class="qz-row">
+        <label class="qz-h" for="qzMode">出題</label>
+        <select id="qzMode">
+          <option value="order">順番どおり</option>
+          <option value="random">ランダム</option>
+          <option value="weak">間違えた問題だけ</option>
+          <option value="new">まだ解いていない問題</option>
+        </select>
+        <button class="chipbtn" id="qzVoice" type="button" aria-pressed="false">問題と解説を読み上げる</button>
+      </div>
+      <p class="qz-stat" id="qzStat"></p>
+      <div class="qz-row"><button class="btn primary" id="qzStart" type="button">開始する</button><button class="btn" id="qzReset" type="button">成績を消す</button></div>
+      <p class="qz-stat" id="qzResetMsg" hidden></p>
+    </div>
+    <div class="qz-card" id="qzCard" hidden>
+      <div class="qz-meta" id="qzMeta"></div>
+      <p class="qz-q" id="qzQ"></p>
+      <div class="qz-ans">
+        <button class="o" id="qzO" type="button"><span class="sym" aria-hidden="true">○</span>正しい</button>
+        <button class="x" id="qzX" type="button"><span class="sym" aria-hidden="true">×</span>誤り</button>
+      </div>
+      <div class="qz-res" id="qzRes" hidden>
+        <p class="qz-verdict" id="qzVerdict"></p>
+        <p class="qz-exp" id="qzExp"></p>
+        <p class="qz-src" id="qzSrc"></p>
+      </div>
+      <div class="qz-nav">
+        <button class="chipbtn" id="qzHearQ" type="button">問題を聞く</button>
+        <button class="chipbtn" id="qzHearA" type="button" hidden>解説を聞く</button>
+        <button class="chipbtn" id="qzGo" type="button" hidden>本文で確認</button>
+        <span class="sp"></span>
+        <button class="btn primary" id="qzNext" type="button" hidden>次の問題 →</button>
+      </div>
+      <div class="qz-nav"><span class="qz-prog" id="qzProg"></span><span class="sp"></span><button class="chipbtn" id="qzQuit" type="button">やめる</button></div>
+    </div>
+    <div class="qz-done" id="qzDone" hidden>
+      <p class="qz-h">結果</p>
+      <p class="qz-score" id="qzScore"></p>
+      <p id="qzDoneMsg"></p>
+      <div class="qz-row"><button class="btn primary" id="qzRetry" type="button">間違えた問題を解き直す</button><button class="btn" id="qzBack" type="button">分野を選び直す</button></div>
     </div>
   </section>
 
@@ -356,13 +461,14 @@ const startApp = (DATA, decrypt) => {
   const rankHTML = (r) => `<span class="rank ${r || "none"}" aria-label="${r ? "重要度" + r : "ランクなし"}">${r || ""}</span>`;
   function status(msg) { $("status").textContent = msg || ""; }
 
-  $("summary").textContent = `全${items.length}項目・約${fmtLong(totalSec)}。全体を通して、または章・項目ごとに連続再生できます。`;
+
 
   // ---------- audio (encrypted files, cached by the service worker / Cache API) ----------
   const AUDIO_CACHE = "tkn26-audio-v1";
   const urls = new Map();
   const pending = new Map();
-  function fileOf(id) { return "audio/" + id + ".bin"; }
+  const AUDIO_EXT = window.APP_AUDIO_EXT || ".bin";
+  function fileOf(id) { const it = byId[id]; return "audio/" + ((it && it.f) || id) + AUDIO_EXT; }
   async function fetchBin(url) {
     let r = null;
     try { if ("caches" in window) r = await (await caches.open(AUDIO_CACHE)).match(url); } catch (e) {}
@@ -452,7 +558,14 @@ const startApp = (DATA, decrypt) => {
     onTime();
     save();
   }
-  function playItem(it, t = 0) { unlock(); open(it, t, true); }
+  function playItem(it, t = 0) { stopAt = 0; unlock(); open(it, t, true); }
+  let stopAt = 0, stopItem = null;
+  function playRange(itemId, a, b) {
+    const it = byId[itemId]; if (!it || !it.s[a] || !it.s[b]) return;
+    unlock();
+    stopItem = it; stopAt = it.s[b][1] + 0.12;
+    open(it, Math.max(0, it.s[a][0] - 0.05), true);
+  }
   function playing() { return !au.paused && !au.ended && au.src && au.src !== SILENT; }
   function togglePlay() {
     unlock();
@@ -510,7 +623,7 @@ const startApp = (DATA, decrypt) => {
     const p = playing();
     if (p === iconState) return;
     iconState = p;
-    $("icPlay").hidden = p; $("icPause").hidden = !p;
+    $("icPlay").toggleAttribute("hidden", p); $("icPause").toggleAttribute("hidden", !p);
     $("bPlay").setAttribute("aria-label", p ? "一時停止" : "再生");
     if ("mediaSession" in navigator) try { navigator.mediaSession.playbackState = p ? "playing" : "paused"; } catch (e) {}
   }
@@ -520,6 +633,7 @@ const startApp = (DATA, decrypt) => {
     syncPlayIcon();
     const real = au.src && au.src !== SILENT;
     const t = real ? (au.currentTime || 0) : (st.t || 0);
+    if (stopAt && real && cur === stopItem && t >= stopAt) { stopAt = 0; au.pause(); }
     if (real) { st.t = t; saveSoon(); }
     if (!dragging) { $("seek").max = cur.d; $("seek").value = t; }
     $("nowTime").textContent = `${fmt(t)} / ${fmt(cur.d)}`;
@@ -611,7 +725,7 @@ const startApp = (DATA, decrypt) => {
     document.querySelectorAll(".row").forEach((r) => {
       const id = r.dataset.id;
       r.classList.toggle("playing", id === cur.id);
-      r.querySelector(".done-mark").hidden = !done.has(id);
+      r.querySelector(".done-mark").toggleAttribute("hidden", !done.has(id));
       if (id !== cur.id) r.querySelector(".bar").style.width = "0";
     });
   }
@@ -681,15 +795,17 @@ const startApp = (DATA, decrypt) => {
 
   // ---------- tabs ----------
   function showTab(which) {
-    const read = which === "read";
-    $("viewRead").hidden = !read; $("viewToc").hidden = read;
-    $("tabRead").setAttribute("aria-selected", String(read)); $("tabToc").setAttribute("aria-selected", String(!read));
+    const read = which === "read", quiz = which === "quiz", toc = !read && !quiz;
+    $("viewRead").hidden = !read; $("viewToc").hidden = !toc; $("viewQuiz").hidden = !quiz;
+    $("tabRead").setAttribute("aria-selected", String(read)); $("tabToc").setAttribute("aria-selected", String(toc)); $("tabQuiz").setAttribute("aria-selected", String(quiz));
     if (!read) $("followWrap").hidden = true;
     else { $("followWrap").hidden = follow; const k = curSeg; curSeg = -2; highlight(k); curSeg = k; }
-    if (read) window.scrollTo({ top: Math.max(0, $("viewRead").offsetTop - 70) });
+    if (read || quiz) window.scrollTo({ top: Math.max(0, $(read ? "viewRead" : "viewQuiz").offsetTop - 70) });
+    if (quiz && !session) renderSetup();
   }
   $("tabToc").addEventListener("click", () => showTab("toc"));
   $("tabRead").addEventListener("click", () => showTab("read"));
+  $("tabQuiz").addEventListener("click", () => showTab("quiz"));
 
   // ---------- deck controls ----------
   $("bPlay").addEventListener("click", togglePlay);
@@ -726,7 +842,11 @@ const startApp = (DATA, decrypt) => {
     else if (+v > 0) { sleepAt = Date.now() + (+v) * 60000; onTime(); }
   });
 
-  $("btnAll").addEventListener("click", () => { setScope("all"); playItem(items[0], 0); showTab("read"); });
+  const firstOrig = items.find((x) => x.p !== "sum" && x.p !== "qa") || items[0];
+  const sumItems = items.filter((x) => x.p === "sum");
+  $("btnAll").addEventListener("click", () => { setScope("all"); playItem(firstOrig, 0); showTab("read"); });
+  $("btnSum").addEventListener("click", () => { const it = sumItems[0] || items[0]; cur = it; setScope("chapter"); playItem(it, 0); showTab("read"); });
+  $("btnQuiz").addEventListener("click", () => showTab("quiz"));
   $("btnA").addEventListener("click", () => { setScope("rankA"); playItem(items.find((x) => x.r === "A"), 0); showTab("read"); });
   $("btnResume").addEventListener("click", () => { $("scope").value = st.scope; playItem(cur, st.t || 0); showTab("read"); });
 
@@ -734,10 +854,10 @@ const startApp = (DATA, decrypt) => {
   async function savedIds() {
     if (!("caches" in window)) return new Set();
     const ks = await (await caches.open(AUDIO_CACHE)).keys();
-    return new Set(ks.map((r) => decodeURIComponent(new URL(r.url).pathname.split("/").pop().replace(/\.bin$/, ""))));
+    return new Set(ks.map((r) => decodeURIComponent(new URL(r.url).pathname.split("/").pop().replace(/\.(bin|mp3)$/, ""))));
   }
   async function refreshSaved() {
-    try { const ks = await savedIds(); const n = items.filter((x) => ks.has(x.id)).length; $("saveState").textContent = n === items.length ? `全${n}項目を保存済み（通信なしで再生できます）` : n ? `保存済み ${n}/${items.length}` : ""; return n; }
+    try { const ks = await savedIds(); const n = items.filter((x) => ks.has(x.f || x.id)).length; $("saveState").textContent = n === items.length ? `全${n}項目を保存済み（通信なしで再生できます）` : n ? `保存済み ${n}/${items.length}` : ""; return n; }
     catch (e) { $("saveState").textContent = ""; return 0; }
   }
   $("btnSave").addEventListener("click", async () => {
@@ -746,7 +866,7 @@ const startApp = (DATA, decrypt) => {
     let have = new Set(); try { have = await savedIds(); } catch (e) {}
     let ok = 0, ng = 0;
     for (const it of items) {
-      try { if (!have.has(it.id)) await fetchBin(fileOf(it.id)); ok++; } catch (e) { ng++; }
+      try { if (!have.has(it.f || it.id)) await fetchBin(fileOf(it.id)); ok++; } catch (e) { ng++; }
       $("saveState").textContent = `保存中 ${ok + ng}/${items.length}`;
     }
     await new Promise((r) => setTimeout(r, 300));
@@ -755,8 +875,139 @@ const startApp = (DATA, decrypt) => {
     b.disabled = false;
   });
 
+  // ---------- quiz (○×) ----------
+  const QZ = DATA.quiz || { sets: [], questions: [] };
+  const QKEY = "tkn26-quiz-v1";
+  const qById = Object.fromEntries(QZ.questions.map((q) => [q.id, q]));
+  const setLabel = Object.fromEntries(QZ.sets.map((x) => [x.id, x.label]));
+  let qres = {};
+  try { qres = JSON.parse(localStorage.getItem(QKEY) || "{}") || {}; } catch (e) { qres = {}; }
+  const qst = Object.assign({ set: "all", mode: "order", voice: false }, qres._prefs || {});
+  if (qst.set !== "all" && !setLabel[qst.set]) qst.set = "all";
+  let session = null;
+  function saveQ() { qres._prefs = { set: qst.set, mode: qst.mode, voice: qst.voice }; try { localStorage.setItem(QKEY, JSON.stringify(qres)); } catch (e) {} }
+  const rec = (id) => (id !== "_prefs" && qres[id]) || null;
+  const poolFor = (sid) => QZ.questions.filter((q) => sid === "all" || q.set === sid);
+  function statsFor(sid) {
+    const qs = poolFor(sid); let done = 0, right = 0;
+    for (const q of qs) { const r = rec(q.id); if (r) { done++; if (r.last) right++; } }
+    return { n: qs.length, done, right, weak: done - right };
+  }
+  function renderSetup() {
+    const sets = [{ id: "all", label: "全分野" }].concat(QZ.sets);
+    $("qzSets").innerHTML = sets.map((x) => { const t = statsFor(x.id); return `<button class="qz-chip" type="button" data-set="${x.id}" aria-pressed="${qst.set === x.id}">${esc(x.label)}<small>${t.right}/${t.n}</small></button>`; }).join("");
+    $("qzMode").value = qst.mode;
+    $("qzVoice").setAttribute("aria-pressed", String(!!qst.voice));
+    const t = statsFor(qst.set);
+    $("qzStat").textContent = t.done ? `${t.n}問中 ${t.done}問を解答済み。最後に正解 ${t.right}問、要復習 ${t.weak}問。` : `${t.n}問。まだ解いていません。`;
+    $("qzSetup").hidden = false; $("qzCard").hidden = true; $("qzDone").hidden = true;
+  }
+  function shuffle(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+  function buildIds() {
+    let qs = poolFor(qst.set);
+    if (qst.mode === "weak") qs = qs.filter((q) => { const r = rec(q.id); return r && !r.last; });
+    if (qst.mode === "new") qs = qs.filter((q) => !rec(q.id));
+    const ids = qs.map((q) => q.id);
+    return qst.mode === "random" ? shuffle(ids) : ids;
+  }
+  function startQuiz(ids) {
+    $("qzResetMsg").hidden = true;
+    if (!ids.length) { $("qzStat").textContent = qst.mode === "weak" ? "間違えた問題はありません。" : qst.mode === "new" ? "この分野はすべて解答済みです。" : "対象の問題がありません。"; return; }
+    session = { ids, i: 0, ok: 0, answered: 0, wrong: [], done: false };
+    $("qzSetup").hidden = true; $("qzDone").hidden = true; $("qzCard").hidden = false;
+    showQ();
+  }
+  const curQ = () => qById[session.ids[session.i]];
+  function showQ() {
+    const q = curQ();
+    session.done = false;
+    $("qzMeta").innerHTML = `<span>問 ${session.i + 1} / ${session.ids.length}</span><span>${esc(setLabel[q.set] || "")}</span>${q.r ? rankHTML(q.r) : ""}`;
+    $("qzQ").textContent = q.q;
+    for (const b of [$("qzO"), $("qzX")]) { b.disabled = false; b.classList.remove("right", "wrong"); }
+    $("qzRes").hidden = true; $("qzHearA").hidden = true; $("qzGo").hidden = true; $("qzNext").hidden = true;
+    $("qzProg").textContent = `正解 ${session.ok} / 解答 ${session.answered}`;
+    window.scrollTo({ top: Math.max(0, $("viewQuiz").offsetTop - 70) });
+    if (qst.voice) playRange(q.it, q.sq, q.sq);
+  }
+  function answer(choice) {
+    if (!session || session.done) return;
+    const q = curQ(); const right = choice === q.a;
+    session.done = true; session.answered++;
+    if (right) session.ok++; else session.wrong.push(q.id);
+    const r = rec(q.id) || { c: 0, w: 0 }; if (right) r.c++; else r.w++; r.last = right ? 1 : 0; qres[q.id] = r; saveQ();
+    const picked = choice ? $("qzO") : $("qzX"), correct = q.a ? $("qzO") : $("qzX");
+    $("qzO").disabled = $("qzX").disabled = true;
+    correct.classList.add("right"); if (!right) picked.classList.add("wrong");
+    $("qzVerdict").className = "qz-verdict " + (right ? "right" : "wrong");
+    $("qzVerdict").textContent = `${right ? "正解" : "不正解"}　答えは ${q.a ? "○（正しい）" : "×（誤り）"}`;
+    $("qzExp").textContent = q.exp;
+    const src = byId[q.src];
+    $("qzSrc").textContent = src ? `根拠：${placeName(src)}｜${src.t}` : "";
+    $("qzRes").hidden = false; $("qzHearA").hidden = false; $("qzGo").hidden = !src; $("qzNext").hidden = false;
+    $("qzNext").textContent = session.i + 1 < session.ids.length ? "次の問題 →" : "結果を見る";
+    $("qzProg").textContent = `正解 ${session.ok} / 解答 ${session.answered}`;
+    if (qst.voice) playRange(q.it, q.sa, q.se);
+  }
+  function finishQuiz() {
+    stopAt = 0; if (!au.paused && cur && cur.p === "qa") au.pause();
+    $("qzCard").hidden = true; $("qzDone").hidden = false;
+    $("qzScore").textContent = `${session.ok} / ${session.answered}`;
+    $("qzDoneMsg").textContent = session.answered === 0 ? "解答した問題はありません。" : session.wrong.length ? `間違えた ${session.wrong.length}問を、もう一度解いておきましょう。` : "全問正解です。この調子で本番へ。";
+    $("qzRetry").hidden = !session.wrong.length;
+  }
+  $("qzSets").addEventListener("click", (e) => { const b = e.target.closest("[data-set]"); if (!b) return; qst.set = b.dataset.set; saveQ(); renderSetup(); });
+  $("qzMode").addEventListener("change", (e) => { qst.mode = e.target.value; saveQ(); });
+  $("qzVoice").addEventListener("click", () => { qst.voice = !qst.voice; saveQ(); $("qzVoice").setAttribute("aria-pressed", String(qst.voice)); });
+  $("qzStart").addEventListener("click", () => { unlock(); startQuiz(buildIds()); });
+  $("qzReset").addEventListener("click", () => {
+    const b = $("qzReset");
+    if (b.dataset.armed !== "1") { b.dataset.armed = "1"; b.textContent = "本当に消す"; $("qzResetMsg").textContent = "もう一度押すと、この端末の一問一答の成績をすべて消します。"; $("qzResetMsg").hidden = false; setTimeout(() => { b.dataset.armed = ""; b.textContent = "成績を消す"; }, 5000); return; }
+    qres = {}; saveQ(); b.dataset.armed = ""; b.textContent = "成績を消す"; $("qzResetMsg").textContent = "成績を消しました。"; renderSetup(); $("qzResetMsg").hidden = false;
+  });
+  $("qzO").addEventListener("click", () => answer(true));
+  $("qzX").addEventListener("click", () => answer(false));
+  $("qzNext").addEventListener("click", () => { if (session.i + 1 < session.ids.length) { session.i++; showQ(); } else finishQuiz(); });
+  $("qzHearQ").addEventListener("click", () => { const q = curQ(); playRange(q.it, q.sq, q.sq); });
+  $("qzHearA").addEventListener("click", () => { const q = curQ(); playRange(q.it, q.sa, q.se); });
+  $("qzGo").addEventListener("click", () => { const q = curQ(); const it = byId[q.src]; if (!it) return; stopAt = 0; open(it, 0, false); showTab("read"); });
+  $("qzQuit").addEventListener("click", () => { if (session && session.answered) finishQuiz(); else { session = null; renderSetup(); } });
+  $("qzRetry").addEventListener("click", () => startQuiz(session.wrong.slice()));
+  $("qzBack").addEventListener("click", () => { session = null; renderSetup(); });
+
+  // ---------- exam countdown ----------
+  (function () {
+    const exam = new Date(2026, 9, 18), now = new Date();
+    const d = Math.round((exam - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
+    const el = $("countdown");
+    if (d > 1) el.innerHTML = `本試験（10月18日・日）まで あと<b>${d}</b>日`;
+    else if (d === 1) el.innerHTML = `本試験は<b>明日</b>です。直前総まとめで最終確認を。`;
+    else if (d === 0) el.innerHTML = `<b>本試験当日</b>です。会場に向かう前に直前総まとめを。`;
+    el.hidden = d < 0;
+  })();
+  {
+    const dur = (f) => fmtLong(items.filter(f).reduce((a, x) => a + x.d, 0));
+    $("summary").textContent = `直前総まとめ 約${dur((x) => x.p === "sum")}／一問一答 ${QZ.questions.length}問／レジュメ全文 約${dur((x) => x.p !== "sum" && x.p !== "qa")}。どれも続けて再生でき、画面を消しても止まりません。`;
+  }
+
+  // drop audio cached under file names that are no longer used
+  (async () => {
+    try {
+      if (!("caches" in window)) return;
+      const c = await caches.open(AUDIO_CACHE);
+      const want = new Set(items.map((x) => new URL(fileOf(x.id), location.href).href));
+      for (const r of await c.keys()) if (!want.has(r.url)) await c.delete(r);
+      refreshSaved();
+    } catch (e) {}
+  })();
+
   document.addEventListener("keydown", (e) => {
     if (e.target.closest("input, select, textarea")) return;
+    if (!$("viewQuiz").hidden && session && !$("qzCard").hidden) {
+      if (e.key === "o" || e.key === "1") { answer(true); return; }
+      if (e.key === "x" || e.key === "2") { answer(false); return; }
+      if (e.key === "Enter" && !$("qzNext").hidden) { e.preventDefault(); $("qzNext").click(); return; }
+    }
+    if (e.code === "Space" && e.target.closest("button")) return;
     if (e.code === "Space") { e.preventDefault(); togglePlay(); }
     else if (e.key === "ArrowRight") nextSeg();
     else if (e.key === "ArrowLeft") prevSeg();
@@ -793,7 +1044,14 @@ const startApp = (DATA, decrypt) => {
 
   // ---------- service worker (offline + installable) ----------
   if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => { navigator.serviceWorker.register("sw.js").catch(() => {}); });
+    const hadController = !!navigator.serviceWorker.controller;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (!hadController) return;
+      const bar = $("updBar"); if (bar) bar.hidden = false;
+    });
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").then((reg) => { try { reg.update(); } catch (e) {} }).catch(() => {});
+    });
   }
 
   // ---------- install hint ----------

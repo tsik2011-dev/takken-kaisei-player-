@@ -1,5 +1,5 @@
 // Offline support: app shell (stale-while-revalidate) + encrypted audio (cache-first).
-const VERSION = "a14b3a9c17";
+const VERSION = "0449472bed";
 const SHELL = "tkn26-shell-" + VERSION;
 const AUDIO = "tkn26-audio-v1";
 const FONTS = "tkn26-fonts-v1";
